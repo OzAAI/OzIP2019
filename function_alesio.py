@@ -4,4 +4,4 @@ def holaquetal():
 
     nombre = string(input("Cómo te llamás? "))
 
-    print(f"Bienvenido {num1}!")
+    print(f"Bienvenido {nombre}!")
