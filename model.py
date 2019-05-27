@@ -334,3 +334,7 @@ def big_XCEPTION(input_shape, num_classes):
 
     model = models.Model(img_input, output)
     return model
+
+def full_Xception(input_shape,num_clases):
+    model = 0
+    return model
