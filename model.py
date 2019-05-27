@@ -1,6 +1,7 @@
 from keras import regularizers
 from keras import layers
 from keras import models
+from keras import applications
 
 def simple_CNN(input_shape, num_classes):
 
@@ -335,6 +336,31 @@ def big_XCEPTION(input_shape, num_classes):
     model = models.Model(img_input, output)
     return model
 
-def full_Xception(input_shape,num_clases):
-    model = 0
+def no_top_known_CNN(net_name='Xception',input_shape,num_clases):
+    
+    # create the base pre-trained model.
+    if net_name == 'Xception':
+#       Input_shape should not be smaller than 71x71 and should have 3 channels
+        base_model = applications.xception.Xception(weights='imagenet', include_top=False,input_shape=input_shape)
+    elif net_name == 'InceptionV3':
+#       Input_shape should not be smaller than 75x75 and should have 3 channels
+        base_model = applications.inception_v3.InceptionV3(weights='imagenet', include_top=False,input_shape=input_shape)
+    elif net_name == 'NASNetLarge':
+#       Input_shape should not be smaller than 32x32 and should have 3 channels
+        base_model = applications.nasnet.NASNetLarge(weights='imagenet', include_top=False,input_shape=input_shape)
+    elif net_name == 'InceptionResNetV2':
+#       Input_shape should not be smaller than 75x75 and should have 3 channels
+        base_model = applications.inception_resnet_v2.InceptionResNetV2(weights='imagenet', include_top=False,input_shape=input_shape)
+    elif net_name == 'ResNeXt101':
+#       Input_shape should not be smaller than 32x32 and should have 3 channels
+        base_model = applications.resnext.ResNeXt101(weights='imagenet', include_top=False,input_shape=input_shape)
+    
+    # add a global spatial average pooling layer
+    x = base_model.output
+    x = layers.GlobalAveragePooling2D()(x)
+    # let's add a fully-connected layer
+    x = layers.Dense(1024, activation='relu')(x)
+    # and a logistic layer -- we have the number of classes as a parameter
+    predictions = layers.Dense(num_clases, activation='softmax')(x)
+    model = models.Model(inputs=base_model.input, outputs=predictions)
     return model
