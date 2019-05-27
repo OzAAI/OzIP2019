@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 
@@ -58,3 +59,16 @@ def split(dataframe,train_pct):
     y_test = test['new_emotion_cd']
 
     return x_train,x_val,x_test,y_train,y_val,y_test
+
+def load_and_save(_read_dir_,_filename_,_write_dir_):
+    #datasplit test
+    fer_dataset = pd.read_csv(os.path.join(_read_dir_,_filename_))
+    x_train,x_val,x_test,y_train,y_val,y_test = split(fer_dataset[['pixels','new_emotion_cd']],0.6)
+    print('train shape {}, val shape {}, test shape {}'.format(x_train.shape, x_val.shape, x_test.shape))
+    
+    x_train.to_csv(os.path.join(_write_dir_,r'x_train.csv'),header=True,index=False)
+    x_val.to_csv(os.path.join(_write_dir_,r'x_val.csv'),header=True,index=False)
+    x_test.to_csv(os.path.join(_write_dir_,r'x_test.csv'),header=True,index=False)
+    y_train.to_csv(os.path.join(_write_dir_,r'y_train.csv'),header=True,index=False)
+    y_val.to_csv(os.path.join(_write_dir_,r'y_val.csv'),header=True,index=False)
+    y_test.to_csv(os.path.join(_write_dir_,r'y_test.csv'),header=True,index=False)
