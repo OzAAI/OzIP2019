@@ -17,7 +17,7 @@ def string_to_face(pixels,width,height):
 #        reshaping the array into a table with a value for each pixel
         img = img.reshape(width,height)
 #        converting value array to image
-        img = im.fromarray(img)
+        img = im.fromarray(img.astype('uint8'))
 #        adding the image to the final array of images to output
         faces.append(img)
     return faces

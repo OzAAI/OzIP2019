@@ -54,16 +54,16 @@ def split(dataframe,train_pct):
     x_val = val['pixels']
     x_test = test['pixels']
     
-    y_train = train['new_emotion_cd']
-    y_val = val['new_emotion_cd']
-    y_test = test['new_emotion_cd']
+    y_train = train[['new_emotion_cd','new_emotion_desc']]
+    y_val = val[['new_emotion_cd','new_emotion_desc']]
+    y_test = test[['new_emotion_cd','new_emotion_desc']]
 
     return x_train,x_val,x_test,y_train,y_val,y_test
 
 def load_and_save(_read_dir_,_filename_,_write_dir_):
     #datasplit test
     fer_dataset = pd.read_csv(os.path.join(_read_dir_,_filename_))
-    x_train,x_val,x_test,y_train,y_val,y_test = split(fer_dataset[['pixels','new_emotion_cd']],0.6)
+    x_train,x_val,x_test,y_train,y_val,y_test = split(fer_dataset[['pixels','new_emotion_cd','new_emotion_desc']],0.6)
     print('train shape {}, val shape {}, test shape {}'.format(x_train.shape, x_val.shape, x_test.shape))
     
     x_train.to_csv(os.path.join(_write_dir_,r'x_train.csv'),header=True,index=False)

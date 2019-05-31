@@ -336,7 +336,7 @@ def big_XCEPTION(input_shape, num_classes):
     model = models.Model(img_input, output)
     return model
 
-def no_top_known_CNN(net_name='Xception',input_shape,num_clases):
+def no_top_known_CNN(input_shape,net_name='Xception'):
     
     # create the base pre-trained model.
     if net_name == 'Xception':
@@ -354,13 +354,4 @@ def no_top_known_CNN(net_name='Xception',input_shape,num_clases):
     elif net_name == 'ResNeXt101':
 #       Input_shape should not be smaller than 32x32 and should have 3 channels
         base_model = applications.resnext.ResNeXt101(weights='imagenet', include_top=False,input_shape=input_shape)
-    
-    # add a global spatial average pooling layer
-    x = base_model.output
-    x = layers.GlobalAveragePooling2D()(x)
-    # let's add a fully-connected layer
-    x = layers.Dense(1024, activation='relu')(x)
-    # and a logistic layer -- we have the number of classes as a parameter
-    predictions = layers.Dense(num_clases, activation='softmax')(x)
-    model = models.Model(inputs=base_model.input, outputs=predictions)
-    return model
+    return base_model
