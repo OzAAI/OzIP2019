@@ -17,19 +17,7 @@ def string_to_face(pixels,width,height):
 #        reshaping the array into a table with a value for each pixel
         img = img.reshape(width,height)
 #        converting value array to image
-        img = im.fromarray(img)
+        img = im.fromarray(img.astype('uint8'))
 #        adding the image to the final array of images to output
         faces.append(img)
     return faces
-
-
-
-#fer_dir = 'C:/Users/franco.ferrero/Documents/Datasets/fer2013.csv'
-#
-#import pandas as pd
-#fer_dataset = pd.read_csv(fer_dir)
-##print(fer_dataset.head())
-##print(fer_dataset[0:1]['pixels'].str.split())
-#
-#faces = string_to_face(fer_dataset['pixels'],48,48)
-#faces[26].show()
