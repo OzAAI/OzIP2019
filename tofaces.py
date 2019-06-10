@@ -21,15 +21,3 @@ def string_to_face(pixels,width,height):
 #        adding the image to the final array of images to output
         faces.append(img)
     return faces
-
-
-
-#fer_dir = 'C:/Users/franco.ferrero/Documents/Datasets/fer2013.csv'
-#
-#import pandas as pd
-#fer_dataset = pd.read_csv(fer_dir)
-##print(fer_dataset.head())
-##print(fer_dataset[0:1]['pixels'].str.split())
-#
-#faces = string_to_face(fer_dataset['pixels'],48,48)
-#faces[26].show()
